@@ -1,6 +1,6 @@
 # FaceProject
 
-This is a Face Project chich I construct for lab and enterprise's demand.
+This is a Face Project which I construct for lab and enterprise's demand.
 
 This project contains three main functions:
 
