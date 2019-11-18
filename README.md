@@ -30,4 +30,4 @@ lib: Lib files are put here. libfaceV3.lib contains APIs of this project.
 
 models: Model files are put here. It contains face detection models only. I upload the other models with [BaiduYun Drive](https://pan.baidu.com/s/1GElLiwqUkDwsa-xAiPfgDA): ma32
 
-scc: The sample is put here.
+src: The sample is put here.
