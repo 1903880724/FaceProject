@@ -1,0 +1,71 @@
+人脸检测识别与表情识别接口和示例工程
+--------------2019-12-3更新---------------------------------
+1.修改了getFaceFromImage函数，现在是void类型，多接收一个float* 参数，用于存放切割出的人脸结果。
+--------------2019-12-2更新---------------------------------
+1.修改了表情识别器识别函数的参数类型，现在在调用前需要把待识别的人脸拷贝到一片连续的内存中。
+2.修改了人脸检测器检测函数的解码过程。
+--------------2019-11-22V4更新-----------------------------
+1.重构了表情识别算法，不再依赖tensorRT。“fer.json”和“fer.params”为表情识别的模型文件，请放在models目录下。
+2.表情识别现在是并行处理，默认批尺寸为20。
+--------------2019-11-12V3更新-----------------------------
+1.更新了新的检测框架
+2.对检测、表情接口进行重构，接口信息参见include/libfaceV3.h
+3.提供处理视频的例子，参见src/sample.cpp
+4.工程依赖：CUDA9.2，cuDNN7.6，mkl，tensorRT，openCV
+5.注意事项：
+	构建项目时须包含“C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\include”目录；
+	须加载“C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.2\lib\x64”下的lib文件；
+	libmxnet.dll和libmxnet.lib适用于10系显卡，9系显卡请自行替换对应库。
+
+--------------2019-10-18更新-----------------------------
+1.更新了表情演示demo
+2.头文件libfacev.h做了一定修改：默认线程数为8；imgZoomWidth和imgZoomHeight表示数据resize后的大小。默认是480x480。
+   注意，这个尺寸越大，运行速度越慢；尺寸越小，min_face参数也要相应下调。
+--------------2019-10-11-小更新--------------------------
+针对输入分辨率可能变化的问题，在检测之前添加了resize操作。默认resize大小:480x480
+--------------2019-9-18-V2更新---------------------------
+1.添加了表情识别部分，表情识别和人脸识别共用同一个检测框架；表情识别使用tensorRT做模型推理，相关库和头文件已经放置好了。
+2.src/main.cpp内有两个例程，分别是表情和人脸识别。
+3.打包了gpu和cpu的库文件，在gpulib和cpulib下。
+4.人脸识别接口加入了_iDistance成员用来表示query图片与gallery的欧氏距离，具体看libfacev2.h。
+5.人脸识别和表情识别函数添加了打印检测时间与识别时间，这个时间在测一组输入图像时比较准确。
+
+--------------2019-8-6-V1更新---------------------------
+1.重写了检测框架，纯cpu实现，依赖ZQCNN和mkl相关包含目录和库文件放在include和lib文件夹下。
+2.打包了sln工程文件，编译例程更方便。
+3.例程所需的动态链接库放在dll文件夹下，运行例程请将dll复制到和可执行文件同级目录。
+
+
+--------------2019-7-8-V0--------------------------------
+一、综述
+    cpplib文件夹内是CPU和GPU版本的库文件
+    FaceRecognitionPackV0是示例工程
+    接口在FaceRecognitionPackV0/src/port.hpp内定义
+    opencv文件夹是预编译的OpenCV
+    openblas文件夹是预编译的openblas
+    mingw64_dll文件夹是mingw64运行库
+
+二、环境
+    Windows10 64bit、CUDA9.0、cuDNN7、OpenCV3.4.5、OpenBLAS、mingw64、MXNet1.3.0
+
+三、运行示例工程
+    
+    （一）安装CUDA9.0和cuDNN7，添加相关路径到环境变量。
+    （二）将opencv/opencv/build的绝对路径添加到环境变量-用户变量-Path中
+               新建系统变量，变量名为OPENCV_DIR，值为opencv/opencv/build/x64/vc15所在的绝对路径
+    （三）将openblas文件夹和mingw64_dll文件夹的绝对路径添加到环境变量-用户变量-Path
+    （四）根据测试环境将cpplib下cpu或gpu内的文件复制到示例工程内
+               libface.dll复制到FaceRecognitionPackV0/build
+               libface.lib复制到FaceRecognitionPackV0/lib
+    （五）在FaceProject2019/FaceRecognitionPackV0/build路径下打开windows powershell
+               编译命令为cmake -G “Visual Studio 15 2017 Win64”..
+               请使用cmake3.2以上版本，VS版本根据本机安装的决定，我的是Visual Studio 15 2017，建议不低于2015
+    （六）打开生成的FaceRecognitionExample.sln，解决方案配置选择Release，解决方案平台选择x64
+               在解决资源方案管理器中，调整FaceRecognitionExample的属性，在链接器-输入-附加依赖项中，取消勾选“从父级或项目默认设置继承”
+               加入libface.dll、mxnet.dll和opencv_world345.dll
+    （七）选中ALL_BUILD选择生成
+    （八）将FaceRecognitionPackV0/build/Release内的可执行文件复制到上一级目录
+    （九）双击运行
+              屏幕打印的“result：0”表示输入图片的索引
+              最后打印的0代表执行成功
+              示例程序和接口定义请参看FaceRecognitionPackV0/src下的main.cpp和port.hpp
