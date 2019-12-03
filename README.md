@@ -18,7 +18,7 @@ OpenCV 3.4.5
 
 MXNet 1.5.1 with C++ API interface
 
-tensorRT 5
+~~tensorRT 5~~ (I reconstruct the deployment and TensorRT is not need any more)
 
 ### File Structure
 
