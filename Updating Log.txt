@@ -1,4 +1,9 @@
 人脸检测识别与表情识别接口和示例工程
+--------------2019-12-3V2更新------------------------------
+1.重新调整了getFaceFromImage和recognise函数，避免opencv部分操作引起的数据类型改变。
+2.注意getFaceFromImage接收的输入图像是单通道的图像。原附的示例代码有一处错误，让该函数接收了三通道的frame。
+（示例代码使用cvtColor(frame, grayframe, cv::COLOR_BGR2GRAY)转换了图像，
+    然而错误地把frame而非grayframe传给getFaceFromImage，正确的参数是grayframe）
 --------------2019-12-3更新---------------------------------
 1.修改了getFaceFromImage函数，现在是void类型，多接收一个float* 参数，用于存放切割出的人脸结果。
 --------------2019-12-2更新---------------------------------
