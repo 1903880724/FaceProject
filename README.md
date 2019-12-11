@@ -1,4 +1,5 @@
 # FaceProject
+![gif](https://raw.githubusercontent.com/terrencewayne/FaceProject/master/faceproject.gif gif)  
 
 This is a Face Project which I construct for lab and enterprise's demand.
 
